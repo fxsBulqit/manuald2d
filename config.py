@@ -27,7 +27,7 @@ TWILIO_FROM_PHONE = "+13103614543"
 MIN_RATING = 3
 
 # Whether to actually send messages (False = dry run, just validate and log)
-DRY_RUN = True
+DRY_RUN = False
 
 # Whether to send emails (set to False to skip email sending)
 SEND_EMAILS = True
