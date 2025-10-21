@@ -100,7 +100,7 @@ def get_email_body(first_name, organizer_first_name):
 
         <p>You can check it out here: <a href="https://bulqit.com" style="color: #0066cc;">bulqit.com</a></p>
 
-        <p>Best,<br>
+        <p>See you around the neighborhood,<br>
         {organizer_first_name}</p>
     </body>
     </html>
