@@ -6,8 +6,7 @@ __pycache__/
 .Python
 
 # CSV data files
-export.csv
-*.csv
+# export.csv is tracked for GitHub Actions workflow
 
 # Log files
 *.log
