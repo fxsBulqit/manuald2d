@@ -5,6 +5,9 @@ on:
     - cron: '*/5 * * * *'  # Run every 5 minutes
   workflow_dispatch:  # Allow manual trigger
 
+permissions:
+  contents: write
+
 jobs:
   process-contacts:
     runs-on: ubuntu-latest
