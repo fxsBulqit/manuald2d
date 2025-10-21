@@ -43,7 +43,8 @@ def get_sms_message(first_name, organizer_first_name):
     """
     Generate SMS message with personalization
     """
-    return f"Hey there, we just dropped off some material about grouping our neighbors together to lower home services. If you can register, it takes 30 seconds and there's no charge or commitment until after we get bids. Thanks for supporting the neighborhood. Here's the link, www.bulqit.com. -{organizer_first_name}"
+    return f"Hey, I’m Keegan — I live nearby. We left some info at your house earlier. A few of us are trying to get enough homeowners together to group outdoor services like pool, lawn, and pest control so we can all get better pricing and more reliable vendors. I got tired of dealing with the usual hassle, so I built this platform to make it easier. It only takes like 30 secs to register. Once enough neighbors sign up, we’ll go out for bids and you can decide if you wanna jump in (and for which services). 
+Can you register? bulqit.com"
 
 
 def get_sender_name(organizer_first_name):
@@ -78,7 +79,7 @@ def get_email_subject(first_name):
     """
     Generate email subject line
     """
-    return f"Great meeting you today!"
+    return f"Left at your house today"
 
 
 def get_email_body(first_name, organizer_first_name):
@@ -88,13 +89,16 @@ def get_email_body(first_name, organizer_first_name):
     return f"""
     <html>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-        <p>Hey there,</p>
+        <p>I dropped off some info at your house earlier today and wanted to tell you more.</p>
 
-        <p>It was great meeting you today - we're really looking forward to being a part of the neighborhood!</p>
+        <p>A few of us have been chatting about how nice it’d be if neighbors could team up on home services like lawn care, pools, pest, and windows. It just makes sense when we’re all using the same trusted vendors, and the discounts add up fast.</p>
 
-        <p>We started Bulqit to make it easier for homeowners to get reliable outdoor care - the same trusted local vendors, but with less time, hassle, and cost. We are very excited for it, and glad you are too!</p>
+        <p>That idea turned into a platform my neighbor and I built called Bulqit. It’s a simple way to help neighbors organize, save, and make life easier around the block.</p>
 
-        <p>If that sounds helpful, you can learn more or sign up here: <a href="https://bulqit.com" style="color: #0066cc;">bulqit.com</a></p>
+        <p>It only takes about 30 seconds to register. Once enough of us sign up, we’ll go out for bids and you can decide if you want to jump in, and for which services.</p>
+        
+
+        <p>You can check it out here: <a href="https://bulqit.com" style="color: #0066cc;">bulqit.com</a></p>
 
         <p>Best,<br>
         {organizer_first_name}</p>
