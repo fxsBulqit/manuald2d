@@ -43,8 +43,8 @@ def get_sms_message(first_name, organizer_first_name):
     """
     Generate SMS message with personalization
     """
-    return f"Hey, I’m Keegan — I live nearby. We left some info at your house earlier. A few of us are trying to get enough homeowners together to group outdoor services like pool, lawn, and pest control so we can all get better pricing and more reliable vendors. I got tired of dealing with the usual hassle, so I built this platform to make it easier. It only takes like 30 secs to register. Once enough neighbors sign up, we’ll go out for bids and you can decide if you wanna jump in (and for which services). 
-Can you register? bulqit.com"
+    return f"""Hey, I’m Keegan — I live nearby. We left some info at your house earlier. A few of us are trying to get enough homeowners together to group outdoor services like pool, lawn, and pest control so we can all get better pricing and more reliable vendors. I got tired of dealing with the usual hassle, so I built this platform to make it easier. It only takes like 30 secs to register. Once enough neighbors sign up, we’ll go out for bids and you can decide if you wanna jump in (and for which services). 
+Can you register? bulqit.com"""
 
 
 def get_sender_name(organizer_first_name):
