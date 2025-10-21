@@ -63,33 +63,32 @@ def process_and_update_csv(csv_file):
 
     stats['total_rows'] = len(rows)
 
-    # Deduplicate by address - keep only first occurrence of each address
-    seen_addresses = {}
+    # Deduplicate by firstname/lastname - keep only first occurrence of each person
+    seen_people = {}
     deduplicated_rows = []
     stats['duplicates_skipped'] = 0
 
     for row in rows:
-        # Create address key from house details
-        address_key = (
-            row.get('House Number', '').lower().strip(),
-            row.get('Street Name', '').lower().strip(),
-            row.get('City', '').lower().strip()
+        # Create person key from first and last name
+        person_key = (
+            row.get('First Name', '').lower().strip(),
+            row.get('Last Name', '').lower().strip()
         )
 
-        # Skip if we've already seen this address in contacted? = no rows
+        # Skip if we've already seen this person in contacted? = no rows
         if row.get('contacted?', '').lower() != 'yes':
-            if address_key in seen_addresses:
+            if person_key in seen_people:
                 stats['duplicates_skipped'] += 1
                 # Mark duplicate as yes to prevent future processing
                 row['contacted?'] = 'yes'
-                log(f"\n🔄 Skipping duplicate address: {row.get('House Number')} {row.get('Street Name')}, {row.get('City')}")
+                log(f"\n🔄 Skipping duplicate person: {row.get('First Name')} {row.get('Last Name')}")
                 continue
             else:
-                seen_addresses[address_key] = True
+                seen_people[person_key] = True
 
         deduplicated_rows.append(row)
 
-    log(f"\n📋 Deduplication: Skipped {stats['duplicates_skipped']} duplicate addresses\n")
+    log(f"\n📋 Deduplication: Skipped {stats['duplicates_skipped']} duplicate people\n")
 
     # Process each row
     for row in deduplicated_rows:
