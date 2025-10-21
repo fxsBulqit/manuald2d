@@ -8,6 +8,7 @@ import csv
 import requests
 from requests.auth import HTTPBasicAuth
 from datetime import datetime
+import time
 import config
 from utils import (
     extract_first_name,
@@ -127,6 +128,9 @@ def process_and_update_csv(csv_file):
             # Validate email
             is_valid, status = validate_email(email)
             log(f"      Validation: {status}")
+
+            # Add 1 second delay between email validations to avoid rate limiting
+            time.sleep(1)
 
             if is_valid:
                 stats['emails_valid'] += 1
