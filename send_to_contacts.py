@@ -63,8 +63,36 @@ def process_and_update_csv(csv_file):
 
     stats['total_rows'] = len(rows)
 
-    # Process each row
+    # Deduplicate by address - keep only first occurrence of each address
+    seen_addresses = {}
+    deduplicated_rows = []
+    stats['duplicates_skipped'] = 0
+
     for row in rows:
+        # Create address key from house details
+        address_key = (
+            row.get('House Number', '').lower().strip(),
+            row.get('Street Name', '').lower().strip(),
+            row.get('City', '').lower().strip()
+        )
+
+        # Skip if we've already seen this address in contacted? = no rows
+        if row.get('contacted?', '').lower() != 'yes':
+            if address_key in seen_addresses:
+                stats['duplicates_skipped'] += 1
+                # Mark duplicate as yes to prevent future processing
+                row['contacted?'] = 'yes'
+                log(f"\n🔄 Skipping duplicate address: {row.get('House Number')} {row.get('Street Name')}, {row.get('City')}")
+                continue
+            else:
+                seen_addresses[address_key] = True
+
+        deduplicated_rows.append(row)
+
+    log(f"\n📋 Deduplication: Skipped {stats['duplicates_skipped']} duplicate addresses\n")
+
+    # Process each row
+    for row in deduplicated_rows:
         # Skip if already contacted
         if row.get('contacted?', '').lower() == 'yes':
             stats['already_contacted'] += 1
@@ -172,6 +200,7 @@ def process_and_update_csv(csv_file):
     log("📊 PROCESSING SUMMARY")
     log("="*60)
     log(f"Total rows: {stats['total_rows']}")
+    log(f"Duplicate addresses (skipped): {stats['duplicates_skipped']}")
     log(f"Already contacted (skipped): {stats['already_contacted']}")
     log(f"Newly processed: {stats['processed']}")
     log(f"Marked as contacted: {stats['updated_to_yes']}")
