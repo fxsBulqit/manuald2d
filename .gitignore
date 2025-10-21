@@ -13,10 +13,12 @@ export.csv
 *.log
 *.txt
 
-# Environment
+# Environment & Config (contains secrets)
 .env
 venv/
 env/
+config.py
+test_sendgrid.py
 
 # IDE
 .vscode/

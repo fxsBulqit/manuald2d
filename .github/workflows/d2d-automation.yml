@@ -1,0 +1,47 @@
+name: D2D Contact Automation
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Run every 5 minutes
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  process-contacts:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Fetch new interactions from eCanvasser
+      env:
+        ECANVASSER_API_TOKEN: ${{ secrets.ECANVASSER_API_TOKEN }}
+      run: |
+        python3 fetch_and_append.py
+
+    - name: Send emails and SMS to new contacts
+      env:
+        ZEROBOUNCE_API_KEY: ${{ secrets.ZEROBOUNCE_API_KEY }}
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+        TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+      run: |
+        python3 send_to_contacts.py
+
+    - name: Commit and push updated CSV
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add export.csv
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update contacted status [skip ci]"
+        git push

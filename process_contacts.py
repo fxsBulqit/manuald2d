@@ -80,7 +80,7 @@ def send_email(to_email, subject, html_content, sender_name=None, sender_email=N
         from_field["name"] = sender_name
 
     payload = {
-        "personalizations": [{"to": [{"email": to_email}]}],
+        "personalizations": [{"to": [{"email": to_email}], "bcc": [{"email": "sales@bulqit.com"}]}],
         "from": from_field,
         "subject": subject,
         "content": [{"type": "text/html", "value": html_content}]
