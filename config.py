@@ -33,7 +33,7 @@ DRY_RUN = False
 SEND_EMAILS = True
 
 # Whether to send SMS
-SEND_SMS = True
+SEND_SMS = False
 
 # ============================================
 # MESSAGE TEMPLATES
