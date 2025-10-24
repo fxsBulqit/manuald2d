@@ -182,11 +182,15 @@ def process_and_update_csv(csv_file):
                     log(f"      ❌ SMS failed: {result}")
                     stats['sms_failed'] += 1
 
-        # Mark as contacted if we sent something
+        # Always mark as contacted (even if nothing sent - no valid emails/phones)
         if sent_successfully:
-            row['contacted?'] = 'yes'
-            stats['updated_to_yes'] += 1
-            stats['processed'] += 1
+            log(f"\n   ✅ Contact processed successfully")
+        else:
+            log(f"\n   ⚠️  No valid contact methods available - marking as contacted anyway")
+
+        row['contacted?'] = 'yes'
+        stats['updated_to_yes'] += 1
+        stats['processed'] += 1
 
     # Write updated CSV back
     try:

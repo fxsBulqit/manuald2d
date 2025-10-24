@@ -27,7 +27,7 @@ TWILIO_FROM_PHONE = "+13103614543"
 MIN_RATING = 3
 
 # Whether to actually send messages (False = dry run, just validate and log)
-DRY_RUN = False
+DRY_RUN = True
 
 # Whether to send emails (set to False to skip email sending)
 SEND_EMAILS = True
@@ -79,7 +79,7 @@ def get_email_subject(first_name):
     """
     Generate email subject line
     """
-    return f"Left at your house today"
+    return f"Left at your house yesterday"
 
 
 def get_email_body(first_name, organizer_first_name):
@@ -89,7 +89,7 @@ def get_email_body(first_name, organizer_first_name):
     return f"""
     <html>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-        <p>I dropped off some info at your house earlier today and wanted to tell you more.</p>
+        <p>I dropped off some info at your house yesterday and wanted to tell you more.</p>
 
         <p>A few of us have been chatting about how nice it’d be if neighbors could team up on home services like lawn care, pools, pest, and windows. It just makes sense when we’re all using the same trusted vendors, and the discounts add up fast.</p>
 

@@ -37,10 +37,10 @@ if os.path.exists(CSV_FILE):
 else:
     print(f"📄 Creating new {CSV_FILE}\n")
 
-# Step 2: Fetch ALL interactions (no date filter, just get everything)
-print(f"🔍 Fetching all interactions from eCanvasser...")
+# Step 2: Fetch most recent interactions (sorted by newest first)
+print(f"🔍 Fetching most recent interactions from eCanvasser...")
 interactions_url = f"{BASE_URL}/interaction"
-params = {"limit": 1000}
+params = {"limit": 250, "order": "desc"}
 
 response = requests.get(interactions_url, headers=headers, params=params, timeout=30)
 if response.status_code != 200:
