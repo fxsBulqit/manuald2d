@@ -100,6 +100,11 @@ for user_id in user_ids:
     except:
         pass
 
+# If user API failed, use fallback default organizer
+DEFAULT_ORGANIZER = "Keegan Bonebrake"
+if len(users) == 0 and len(user_ids) > 0:
+    print(f"   ⚠️  User API failed - using fallback organizer: {DEFAULT_ORGANIZER}")
+
 print(f"   ✅ Retrieved {len(contacts)} contacts, {len(houses)} houses, and {len(users)} users\n")
 
 # Step 4: Build CSV rows
@@ -151,9 +156,13 @@ for interaction in new_interactions:
     if isinstance(status, dict):
         status = status.get('name', '')
 
-    # Get organizer name from users dict
+    # Get organizer name from users dict, use fallback if API failed
     created_by = interaction.get('created_by', '')
     organizer = users.get(created_by, '')
+
+    # If organizer is empty and we have a default, use it
+    if not organizer and DEFAULT_ORGANIZER:
+        organizer = DEFAULT_ORGANIZER
 
     new_rows.append({
         'First Name': first_name,
